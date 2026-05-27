@@ -1,4 +1,4 @@
-const CACHE_NAME = 'direct-wa-v2';
+const CACHE_NAME = 'direct-wa-v6';
 const ASSETS = [
   './',
   './index.html',

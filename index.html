@@ -1,33 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Direct WA — Kirim WhatsApp Tanpa Simpan Kontak</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Aplikasi utility Neo Brutalism untuk membuka chat WhatsApp langsung tanpa perlu menyimpan nomor kontak terlebih dahulu. Cepat, ringan, dan gratis.">
+  <meta name="description"
+    content="Aplikasi utility Neo Brutalism untuk membuka chat WhatsApp langsung tanpa perlu menyimpan nomor kontak terlebih dahulu. Cepat, ringan, dan gratis.">
   <meta name="theme-color" content="#25D366">
-  
+
   <!-- Apple iOS Mobile Web App Settings -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Direct WA">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  
+
   <!-- Favicon and Manifest -->
   <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
   <link rel="manifest" href="manifest.json">
-  
+
   <!-- Google Fonts: Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&amp;display=swap" rel="stylesheet">
-  
+
+  <!-- Anti-flash Dark Mode Script -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="app-container">
+    <div class="theme-toggle-container">
+      <button id="theme-toggle" class="brutalist-btn-theme" aria-label="Ubah Tema (Gelap/Terang)">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg viewBox="0 0 24 24" class="theme-icon sun-icon" aria-hidden="true">
+          <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
+          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          </line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round"></line>
+          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
+          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round"></line>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg viewBox="0 0 24 24" class="theme-icon moon-icon" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
     <div class="brutalist-card">
       <header class="app-header">
         <div class="logo-container">
@@ -37,9 +74,13 @@
             <!-- Main Button Area -->
             <rect x="0" y="0" width="84" height="84" rx="16" fill="#25D366" stroke="#000000" stroke-width="4"></rect>
             <!-- Speech bubble -->
-            <path d="M25 20 H59 C64 20, 68 24, 68 29 V47 C68 52, 64 56, 59 56 H39 L27 68 V56 H25 C20 56, 16 52, 16 47 V29 C16 24, 20 20, 25 20 Z" fill="#FFFFFF" stroke="#000000" stroke-width="4" stroke-linejoin="round"></path>
+            <path
+              d="M25 20 H59 C64 20, 68 24, 68 29 V47 C68 52, 64 56, 59 56 H39 L27 68 V56 H25 C20 56, 16 52, 16 47 V29 C16 24, 20 20, 25 20 Z"
+              fill="#FFFFFF" stroke="#000000" stroke-width="4" stroke-linejoin="round"></path>
             <!-- Phone icon -->
-            <path d="M 32 30 C 33 30 38 35 38 37 C 38 40 33 44 33 44 C 36 49 41 54 44 51 C 44 51 48 46 51 46 C 53 46 58 51 58 52 C 58 56 52 60 49 60 C 38 60 27 49 27 38 C 27 35 31 30 32 30 Z" fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
+            <path
+              d="M 32 30 C 33 30 38 35 38 37 C 38 40 33 44 33 44 C 36 49 41 54 44 51 C 44 51 48 46 51 46 C 53 46 58 51 58 52 C 58 56 52 60 49 60 C 38 60 27 49 27 38 C 27 35 31 30 32 30 Z"
+              fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
           </svg>
         </div>
         <h1 class="app-title">Direct WA</h1>
@@ -50,18 +91,8 @@
         <div class="input-wrapper">
           <label for="phone-number" class="sr-only">Nomor Telepon WhatsApp</label>
           <div class="input-group">
-            <input 
-              type="tel" 
-              id="phone-number" 
-              name="phone-number" 
-              placeholder="08123456789" 
-              autocomplete="off" 
-              autofocus
-              required
-            >
-            <button type="button" id="paste-btn" class="brutalist-btn-secondary" title="Tempel dari Clipboard">
-              <span>Paste</span>
-            </button>
+            <input type="tel" id="phone-number" name="phone-number" placeholder="08123456789" autocomplete="off"
+              autofocus required>
           </div>
         </div>
 
@@ -72,19 +103,17 @@
 
         <button type="submit" id="submit-btn" class="brutalist-btn-primary">
           <span>Chat WhatsApp</span>
-          <svg viewBox="0 0 24 24" class="btn-icon" aria-hidden="true">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="currentColor"></path>
-          </svg>
         </button>
       </form>
     </div>
-    
+
     <footer class="app-footer">
       <p>Direct WA — Lightweight &amp; Secure. No data is saved.</p>
       <p style="margin-top: 6px;">Made with ❤️ by Alwizen</p>
     </footer>
   </main>
-  
+
   <script src="app.js"></script>
 </body>
+
 </html>

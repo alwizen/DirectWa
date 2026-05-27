@@ -1,9 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('wa-form');
   const phoneInput = document.getElementById('phone-number');
-  const pasteBtn = document.getElementById('paste-btn');
   const errorCard = document.getElementById('error-card');
   const errorMessage = document.getElementById('error-message');
+  const themeToggle = document.getElementById('theme-toggle');
+
+  // --- Theme Toggle Logic ---
+  function getActiveTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    // Vibrate device for tactile button press if supported
+    if ('vibrate' in navigator) {
+      navigator.vibrate(30);
+    }
+    const currentTheme = getActiveTheme();
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  });
 
   // Explicitly focus input when app opens
   phoneInput.focus();
@@ -39,35 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     return cleaned;
   }
-
-  // Paste action from Clipboard API
-  pasteBtn.addEventListener('click', async () => {
-    // Vibrate device for tactile button press if supported
-    if ('vibrate' in navigator) {
-      navigator.vibrate(30);
-    }
-
-    try {
-      if (!navigator.clipboard || !navigator.clipboard.readText) {
-        showError('Clipboard API tidak didukung pada browser Anda. Silakan tempel secara manual.');
-        return;
-      }
-
-      const text = await navigator.clipboard.readText();
-      const trimmedText = text.trim();
-
-      if (trimmedText) {
-        phoneInput.value = trimmedText;
-        hideError();
-        phoneInput.focus();
-      } else {
-        showError('Clipboard kosong. Silakan salin nomor terlebih dahulu.');
-      }
-    } catch (err) {
-      console.warn('Clipboard read failed: ', err);
-      showError('Gagal mengakses clipboard. Izinkan akses clipboard atau tempel nomor secara manual.');
-    }
-  });
 
   // Handle Form Submission
   form.addEventListener('submit', (e) => {

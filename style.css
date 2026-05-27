@@ -16,6 +16,10 @@
   --border-color: #000000;
   --shadow-color: #000000;
   
+  --input-inset-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.15);
+  --error-badge-bg: #000000;
+  --error-badge-text: #FFFFFF;
+  
   --border-width: 4px;
   --border-radius: 16px;
   --font-family: 'Outfit', sans-serif;
@@ -25,8 +29,9 @@
   --btn-translate: 4px;
 }
 
+/* System Dark Mode Fallback (if no theme set manually) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg-color: #121212;
     --text-color: #FDFBF7;
     --card-bg: #1E1E1E;
@@ -43,7 +48,59 @@
     --error-text: #FFFFFF;
     --border-color: #FDFBF7;
     --shadow-color: #FDFBF7;
+    
+    --input-inset-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.05);
+    --error-badge-bg: var(--border-color);
+    --error-badge-text: var(--bg-color);
   }
+}
+
+/* Explicit Dark Theme */
+:root[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #FDFBF7;
+  --card-bg: #1E1E1E;
+  
+  --primary-color: #25D366;
+  --primary-hover: #2ee673;
+  --btn-text-primary: #000000;
+  
+  --secondary-color: #333333;
+  --secondary-hover: #444444;
+  --btn-text-secondary: #FDFBF7;
+  
+  --error-bg: #E84545;
+  --error-text: #FFFFFF;
+  --border-color: #FDFBF7;
+  --shadow-color: #FDFBF7;
+  
+  --input-inset-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.05);
+  --error-badge-bg: var(--border-color);
+  --error-badge-text: var(--bg-color);
+}
+
+/* Explicit Light Theme */
+:root[data-theme="light"] {
+  --bg-color: #FDFBF7;
+  --text-color: #121212;
+  --card-bg: #FFFFFF;
+  
+  --primary-color: #25D366;
+  --primary-hover: #1ebd59;
+  --btn-text-primary: #000000;
+  
+  --secondary-color: #FFDE4D;
+  --secondary-hover: #f0cf37;
+  --btn-text-secondary: #000000;
+  
+  --error-bg: #FF5C5C;
+  --error-text: #000000;
+  --border-color: #000000;
+  --shadow-color: #000000;
+  
+  --input-inset-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.15);
+  --error-badge-bg: #000000;
+  --error-badge-text: #FFFFFF;
 }
 
 /* CSS Reset & General Styles */
@@ -82,6 +139,7 @@ body {
 .app-container {
   width: 100%;
   max-width: 420px;
+  min-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -183,13 +241,7 @@ input[type="tel"] {
   border-radius: var(--border-radius);
   outline: none;
   transition: border-color 0.3s ease, background-color 0.3s ease;
-  box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.15);
-}
-
-@media (prefers-color-scheme: dark) {
-  input[type="tel"] {
-    box-shadow: inset 2px 2px 0px rgba(255, 255, 255, 0.05);
-  }
+  box-shadow: var(--input-inset-shadow);
 }
 
 input[type="tel"]:focus {
@@ -236,22 +288,6 @@ input[type="tel"]::placeholder {
   box-shadow: 0px 0px 0px var(--shadow-color);
 }
 
-.brutalist-btn-secondary {
-  background-color: var(--secondary-color);
-  color: var(--btn-text-secondary);
-  font-size: 1rem;
-  padding: 16px 20px;
-  box-shadow: 4px 4px 0px var(--shadow-color);
-}
-
-.brutalist-btn-secondary:hover {
-  background-color: var(--secondary-hover);
-}
-
-.brutalist-btn-secondary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--shadow-color);
-}
 
 .btn-icon {
   width: 20px;
@@ -282,21 +318,14 @@ input[type="tel"]::placeholder {
 }
 
 .error-badge {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: var(--error-badge-bg);
+  color: var(--error-badge-text);
   font-size: 0.75rem;
   font-weight: 900;
   padding: 2px 8px;
   border-radius: 4px;
   align-self: flex-start;
   text-transform: uppercase;
-}
-
-@media (prefers-color-scheme: dark) {
-  .error-badge {
-    background-color: var(--border-color);
-    color: var(--bg-color);
-  }
 }
 
 .error-message {
@@ -318,6 +347,8 @@ input[type="tel"]::placeholder {
   opacity: 0.6;
   line-height: 1.4;
   padding: 0 16px;
+  margin-top: auto;
+  padding-top: 24px;
 }
 
 /* Focus Styling for Accessibility */
@@ -325,4 +356,80 @@ input[type="tel"]:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--primary-color);
   outline-offset: 3px;
+}
+
+/* Theme Toggle Button Component (Neo Brutalism Style) */
+.theme-toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+  margin-bottom: -4px; /* Sits nicely above the main card */
+  z-index: 10;
+  animation: cardEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.brutalist-btn-theme {
+  background-color: var(--secondary-color);
+  color: var(--btn-text-secondary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.3s ease, border-color 0.3s ease;
+  outline: none;
+}
+
+.brutalist-btn-theme:hover {
+  background-color: var(--secondary-hover);
+  transform: scale(1.05);
+}
+
+.brutalist-btn-theme:active {
+  transform: translate(2px, 2px) scale(0.95);
+  box-shadow: 2px 2px 0px var(--shadow-color);
+}
+
+.theme-icon {
+  width: 22px;
+  height: 22px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Toggle icon display states based on active theme */
+:root[data-theme="light"] .sun-icon {
+  display: none;
+}
+:root[data-theme="light"] .moon-icon {
+  display: block;
+}
+
+:root[data-theme="dark"] .sun-icon {
+  display: block;
+}
+:root[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+/* Default state based on media query when no data-theme attribute exists */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sun-icon {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .moon-icon {
+    display: none;
+  }
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .sun-icon {
+    display: none;
+  }
+  :root:not([data-theme="dark"]) .moon-icon {
+    display: block;
+  }
 }
