@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Neo Brutalist Flat Shadow -->
+  <rect x="42" y="42" width="440" height="440" rx="64" fill="#000000" />
+  <!-- Main Card -->
+  <rect x="24" y="24" width="440" height="440" rx="64" fill="#25D366" stroke="#000000" stroke-width="20" />
+  <!-- Speech Bubble -->
+  <g transform="translate(86, 86)">
+    <path d="M 50 30 L 290 30 C 318 30, 340 52, 340 80 L 340 200 C 340 228, 318 250, 290 250 L 150 250 L 70 310 L 70 250 L 50 250 C 22 250, 0 228, 0 200 L 0 80 C 0 52, 22 30, 50 30 Z" fill="#FFFFFF" stroke="#000000" stroke-width="16" stroke-linejoin="round" />
+    <!-- Telephone receiver -->
+    <path d="M 120 90 C 125 90 145 110 145 118 C 145 130 125 150 125 150 C 138 175 162 199 187 212 C 187 212 207 192 219 192 C 227 192 247 212 247 217 C 247 235 220 255 205 255 C 150 255 95 200 95 145 C 95 130 115 103 120 90 Z" fill="#000000" stroke="#000000" stroke-width="6" stroke-linejoin="round" />
+  </g>
+</svg>
