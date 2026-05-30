@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const errorCard = document.getElementById('error-card');
   const errorMessage = document.getElementById('error-message');
   const themeToggle = document.getElementById('theme-toggle');
+  
+  const historyContainer = document.getElementById('history-container');
+  const historyList = document.getElementById('history-list');
+  const clearHistoryBtn = document.getElementById('clear-history');
+  const toggleHistoryBtn = document.getElementById('toggle-history-btn');
 
   // --- Theme Toggle Logic ---
   function getActiveTheme() {
@@ -86,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Redirect to WhatsApp API
     const waUrl = `https://wa.me/${normalized}`;
+    saveToHistory(rawValue.trim(), normalized);
     window.location.href = waUrl;
   });
 
@@ -95,6 +101,93 @@ document.addEventListener('DOMContentLoaded', () => {
       hideError();
     }
   });
+
+  // --- History Logic ---
+  const HISTORY_KEY = 'wa_history';
+  const MAX_HISTORY = 10;
+  let isHistoryVisible = false;
+
+  if (toggleHistoryBtn) {
+    toggleHistoryBtn.addEventListener('click', () => {
+      if ('vibrate' in navigator) navigator.vibrate(30);
+      isHistoryVisible = !isHistoryVisible;
+      renderHistory();
+    });
+  }
+
+  function getHistory() {
+    const hist = localStorage.getItem(HISTORY_KEY);
+    return hist ? JSON.parse(hist) : [];
+  }
+
+  function saveToHistory(raw, normalized) {
+    let hist = getHistory();
+    hist = hist.filter(item => item.normalized !== normalized);
+    hist.unshift({ raw, normalized, timestamp: Date.now() });
+    if (hist.length > MAX_HISTORY) {
+      hist = hist.slice(0, MAX_HISTORY);
+    }
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    renderHistory();
+  }
+
+  function clearHistory() {
+    localStorage.removeItem(HISTORY_KEY);
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const hist = getHistory();
+    
+    if (!isHistoryVisible) {
+      if (historyContainer) historyContainer.classList.add('hidden');
+      return;
+    }
+
+    if (historyContainer) historyContainer.classList.remove('hidden');
+    if (historyList) historyList.innerHTML = '';
+
+    if (hist.length === 0) {
+      const li = document.createElement('li');
+      li.style = "padding:16px;text-align:center;font-weight:600;opacity:0.6;";
+      li.textContent = "Belum ada riwayat";
+      if (historyList) historyList.appendChild(li);
+      return;
+    }
+    
+    hist.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'history-item';
+      
+      const spanNum = document.createElement('span');
+      spanNum.className = 'history-number';
+      spanNum.textContent = item.raw;
+      
+      const divIcon = document.createElement('div');
+      divIcon.className = 'history-icon';
+      divIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      
+      li.appendChild(spanNum);
+      li.appendChild(divIcon);
+      
+      li.addEventListener('click', () => {
+        if ('vibrate' in navigator) navigator.vibrate(50);
+        saveToHistory(item.raw, item.normalized);
+        window.location.href = `https://wa.me/${item.normalized}`;
+      });
+      
+      if (historyList) historyList.appendChild(li);
+    });
+  }
+
+  if (clearHistoryBtn) {
+    clearHistoryBtn.addEventListener('click', () => {
+      if ('vibrate' in navigator) navigator.vibrate(50);
+      clearHistory();
+    });
+  }
+
+  renderHistory();
 });
 
 // Register Service Worker for PWA

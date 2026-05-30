@@ -93,6 +93,12 @@
           <div class="input-group">
             <input type="tel" id="phone-number" name="phone-number" placeholder="08123456789" autocomplete="off"
               autofocus required>
+            <button type="button" id="toggle-history-btn" class="brutalist-btn-icon" aria-label="Buka Riwayat" title="Riwayat">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -105,11 +111,21 @@
           <span>Chat WhatsApp</span>
         </button>
       </form>
+
+      <div id="history-container" class="history-container hidden">
+        <div class="history-header">
+          <h2 class="history-title">Riwayat</h2>
+          <button type="button" id="clear-history" class="brutalist-btn-sm" aria-label="Hapus Riwayat">Hapus</button>
+        </div>
+        <ul id="history-list" class="history-list">
+          <!-- history items injected here -->
+        </ul>
+      </div>
     </div>
 
     <footer class="app-footer">
       <p>Direct WA — Lightweight &amp; Secure. No data is saved.</p>
-      <p style="margin-top: 6px;">Made with ❤️ by Alwizen</p>
+      <p style="margin-top: 6px;">Made with ❤️ solu8i project</p>
     </footer>
   </main>
 
