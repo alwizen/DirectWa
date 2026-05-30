@@ -254,6 +254,33 @@ input[type="tel"]::placeholder {
   font-weight: 600;
 }
 
+textarea.brutalist-textarea {
+  width: 100%;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 16px 20px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  box-shadow: var(--input-inset-shadow);
+  resize: vertical;
+  min-height: 80px;
+}
+
+textarea.brutalist-textarea:focus {
+  border-color: var(--primary-color);
+}
+
+textarea.brutalist-textarea::placeholder {
+  color: var(--text-color);
+  opacity: 0.4;
+  font-weight: 600;
+}
+
 /* Brutalist Buttons styling */
 .brutalist-btn-primary, .brutalist-btn-secondary {
   font-family: var(--font-family);
@@ -316,6 +343,15 @@ input[type="tel"]::placeholder {
 .brutalist-btn-icon svg {
   width: 26px;
   height: 26px;
+}
+
+#toggle-history-btn {
+  background-color: #7E53F7;
+  color: #FFFFFF;
+}
+
+#toggle-history-btn:hover {
+  background-color: #926CFF;
 }
 
 
@@ -499,6 +535,7 @@ input[type="tel"]::placeholder {
 
 /* Focus Styling for Accessibility */
 input[type="tel"]:focus-visible,
+textarea:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--primary-color);
   outline-offset: 3px;

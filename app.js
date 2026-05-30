@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const historyList = document.getElementById('history-list');
   const clearHistoryBtn = document.getElementById('clear-history');
   const toggleHistoryBtn = document.getElementById('toggle-history-btn');
+  const clearFieldBtn = document.getElementById('clear-field-btn');
+  const messageInput = document.getElementById('message-text');
 
   // --- Theme Toggle Logic ---
   function getActiveTheme() {
@@ -90,17 +92,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Redirect to WhatsApp API
-    const waUrl = `https://wa.me/${normalized}`;
+    const message = messageInput ? messageInput.value.trim() : '';
+    let waUrl = `https://wa.me/${normalized}`;
+    if (message) {
+      waUrl += `?text=${encodeURIComponent(message)}`;
+    }
+    
     saveToHistory(rawValue.trim(), normalized);
     window.location.href = waUrl;
   });
 
-  // Hide error when user type again
+  // Hide error when user type again and toggle clear field visibility
   phoneInput.addEventListener('input', () => {
     if (!errorCard.classList.contains('hidden')) {
       hideError();
     }
+    if (clearFieldBtn) {
+      if (phoneInput.value.length > 0) {
+        clearFieldBtn.style.display = 'flex';
+      } else {
+        clearFieldBtn.style.display = 'none';
+      }
+    }
   });
+
+  if (clearFieldBtn) {
+    clearFieldBtn.addEventListener('click', () => {
+      phoneInput.value = '';
+      clearFieldBtn.style.display = 'none';
+      if ('vibrate' in navigator) navigator.vibrate(30);
+      phoneInput.focus();
+    });
+  }
 
   // --- History Logic ---
   const HISTORY_KEY = 'wa_history';
@@ -173,7 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
       li.addEventListener('click', () => {
         if ('vibrate' in navigator) navigator.vibrate(50);
         saveToHistory(item.raw, item.normalized);
-        window.location.href = `https://wa.me/${item.normalized}`;
+        
+        let waUrl = `https://wa.me/${item.normalized}`;
+        const message = messageInput ? messageInput.value.trim() : '';
+        if (message) {
+          waUrl += `?text=${encodeURIComponent(message)}`;
+        }
+        
+        window.location.href = waUrl;
       });
       
       if (historyList) historyList.appendChild(li);
