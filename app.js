@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const historyList = document.getElementById('history-list');
   const clearHistoryBtn = document.getElementById('clear-history');
   const toggleHistoryBtn = document.getElementById('toggle-history-btn');
-  const clearFieldBtn = document.getElementById('clear-field-btn');
   const messageInput = document.getElementById('message-text');
 
   // --- Theme Toggle Logic ---
@@ -102,28 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = waUrl;
   });
 
-  // Hide error when user type again and toggle clear field visibility
+  // Hide error when user type again
   phoneInput.addEventListener('input', () => {
     if (!errorCard.classList.contains('hidden')) {
       hideError();
     }
-    if (clearFieldBtn) {
-      if (phoneInput.value.length > 0) {
-        clearFieldBtn.style.display = 'flex';
-      } else {
-        clearFieldBtn.style.display = 'none';
-      }
-    }
   });
-
-  if (clearFieldBtn) {
-    clearFieldBtn.addEventListener('click', () => {
-      phoneInput.value = '';
-      clearFieldBtn.style.display = 'none';
-      if ('vibrate' in navigator) navigator.vibrate(30);
-      phoneInput.focus();
-    });
-  }
 
   // --- History Logic ---
   const HISTORY_KEY = 'wa_history';

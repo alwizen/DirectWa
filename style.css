@@ -187,10 +187,11 @@ body {
   transform: scale(1.1) rotate(5deg);
 }
 
-.logo-svg {
+.simple-logo {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: contain;
 }
 
 .app-title {
@@ -245,7 +246,7 @@ input[type="tel"] {
 }
 
 input[type="tel"]:focus {
-  border-color: var(--primary-color);
+  border-color: #6366F1;
 }
 
 input[type="tel"]::placeholder {
@@ -272,7 +273,7 @@ textarea.brutalist-textarea {
 }
 
 textarea.brutalist-textarea:focus {
-  border-color: var(--primary-color);
+  border-color: #6366F1;
 }
 
 textarea.brutalist-textarea::placeholder {
@@ -346,12 +347,12 @@ textarea.brutalist-textarea::placeholder {
 }
 
 #toggle-history-btn {
-  background-color: #7E53F7;
-  color: #FFFFFF;
+  background-color: #FFDE4D;
+  color: #000000;
 }
 
 #toggle-history-btn:hover {
-  background-color: #926CFF;
+  background-color: #F0CF37;
 }
 
 
@@ -535,7 +536,11 @@ textarea.brutalist-textarea::placeholder {
 
 /* Focus Styling for Accessibility */
 input[type="tel"]:focus-visible,
-textarea:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #6366F1;
+  outline-offset: 3px;
+}
+
 button:focus-visible {
   outline: 3px solid var(--primary-color);
   outline-offset: 3px;

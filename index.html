@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
   <!-- Favicon and Manifest -->
-  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="icon" type="image/png" href="icons/logo.png">
   <link rel="manifest" href="manifest.json">
 
   <!-- Google Fonts: Outfit -->
@@ -68,20 +68,7 @@
     <div class="brutalist-card">
       <header class="app-header">
         <div class="logo-container">
-          <svg viewBox="0 0 100 100" class="logo-svg" aria-hidden="true">
-            <!-- Brutalist Shadow -->
-            <rect x="8" y="8" width="84" height="84" rx="16" fill="#000000"></rect>
-            <!-- Main Button Area -->
-            <rect x="0" y="0" width="84" height="84" rx="16" fill="#25D366" stroke="#000000" stroke-width="4"></rect>
-            <!-- Speech bubble -->
-            <path
-              d="M25 20 H59 C64 20, 68 24, 68 29 V47 C68 52, 64 56, 59 56 H39 L27 68 V56 H25 C20 56, 16 52, 16 47 V29 C16 24, 20 20, 25 20 Z"
-              fill="#FFFFFF" stroke="#000000" stroke-width="4" stroke-linejoin="round"></path>
-            <!-- Phone icon -->
-            <path
-              d="M 32 30 C 33 30 38 35 38 37 C 38 40 33 44 33 44 C 36 49 41 54 44 51 C 44 51 48 46 51 46 C 53 46 58 51 58 52 C 58 56 52 60 49 60 C 38 60 27 49 27 38 C 27 35 31 30 32 30 Z"
-              fill="#000000" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
-          </svg>
+          <img src="icons/logo.png" alt="Direct WA Logo" class="simple-logo" aria-hidden="true">
         </div>
         <h1 class="app-title">Direct WA</h1>
         <p class="app-subtitle">Kirim pesan WhatsApp tanpa simpan nomor kontak.</p>
@@ -93,12 +80,6 @@
           <div class="input-group">
             <input type="tel" id="phone-number" name="phone-number" placeholder="08123456789" autocomplete="off"
               autofocus required>
-            <button type="button" id="clear-field-btn" class="brutalist-btn-icon" aria-label="Hapus Input" title="Hapus Input" style="display: none; background-color: var(--error-bg); color: var(--error-text);">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
             <button type="button" id="toggle-history-btn" class="brutalist-btn-icon" aria-label="Buka Riwayat" title="Riwayat">
               <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
@@ -119,7 +100,7 @@
         </div>
 
         <button type="submit" id="submit-btn" class="brutalist-btn-primary">
-          <span>Chat WhatsApp</span>
+          <span>Kirim WhatsApp</span>
         </button>
       </form>
 
@@ -136,7 +117,7 @@
 
     <footer class="app-footer">
       <p>Direct WA — Lightweight &amp; Secure. No data is saved.</p>
-      <p style="margin-top: 6px;">Made with ❤️ solu8i project</p>
+      <p style="margin-top: 6px;">Made with 💙 solu8i project</p>
     </footer>
   </main>
 
